@@ -1,1 +1,3 @@
-# Cinema-City
+# Cinema City
+
+A Flutter application
