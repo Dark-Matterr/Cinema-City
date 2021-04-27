@@ -1,11 +1,25 @@
 import 'package:cinema_city/constant.dart';
+import 'package:cinema_city/provider/login_model.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen();
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => LoginModel(),
+      child: LoginChildWdiget(),
+    );
+  }
+}
+
+class LoginChildWdiget extends StatelessWidget {
   final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final login_provider = Provider.of<LoginModel>(context, listen: false);
     SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -83,13 +97,16 @@ class LoginScreen extends StatelessWidget {
                       margin: EdgeInsets.only(top: SizeConfig.defaultSize),
                       child: RaisedButton(
                         textColor: Colors.white,
-                        child: Text(
-                          "Sign In",
-                          style:
-                              TextStyle(fontSize: SizeConfig.defaultSize * 2),
+                        child: Consumer<LoginModel>(
+                          builder: (_, val, __) => Text(val.getresp,
+                              style: TextStyle(
+                                  fontSize: SizeConfig.defaultSize * 2)),
                         ),
                         color: cPrimaryColor,
-                        onPressed: () {},
+                        onPressed: () {
+                          login_provider.userSignIn();
+                          print(login_provider.getresp);
+                        },
                       ),
                     ),
                     //Register Button
