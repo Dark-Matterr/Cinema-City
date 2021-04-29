@@ -1,9 +1,7 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/provider/login_model.dart';
-import 'package:cinema_city/routes/login.dart';
+import 'package:cinema_city/screens/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +15,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Cinema City',
       theme: ThemeData(
+        canvasColor: cBgColor,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+        ),
         scaffoldBackgroundColor: cBgColor,
         textTheme: GoogleFonts.dmSansTextTheme().apply(
           displayColor: Colors.white,
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginScreen(),
+      home: MovieScreen(),
     );
   }
 }

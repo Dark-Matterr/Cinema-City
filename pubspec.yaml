@@ -30,6 +30,8 @@ dependencies:
   google_fonts: ^1.1.2
   provider: ^4.3.3
   http: ^0.12.2
+  smooth_star_rating: ^1.1.1
+  scroll_snap_list: ^0.6.0
   cupertino_icons: ^1.0.0
 
 dev_dependencies:

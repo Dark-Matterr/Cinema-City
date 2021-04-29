@@ -1,6 +1,7 @@
 import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/provider/login_model.dart';
 import 'package:cinema_city/size_config.dart';
+import 'package:cinema_city/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,15 +38,7 @@ class LoginChildWdiget extends StatelessWidget {
               ),
             ),
             // Title Text
-            Container(
-              child: Text(
-                "Cinema City",
-                style: TextStyle(
-                    fontSize: SizeConfig.defaultSize * 4,
-                    fontWeight: FontWeight.bold,
-                    color: cPrimaryColor),
-              ),
-            ),
+            Container(child: TitleWidget(4.0)),
             //Login Form
             Container(
               margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.09),
@@ -97,11 +90,9 @@ class LoginChildWdiget extends StatelessWidget {
                       margin: EdgeInsets.only(top: SizeConfig.defaultSize),
                       child: RaisedButton(
                         textColor: Colors.white,
-                        child: Consumer<LoginModel>(
-                          builder: (_, val, __) => Text(val.getresp,
-                              style: TextStyle(
-                                  fontSize: SizeConfig.defaultSize * 2)),
-                        ),
+                        child: Text("Sign In",
+                            style: TextStyle(
+                                fontSize: SizeConfig.defaultSize * 2)),
                         color: cPrimaryColor,
                         onPressed: () {
                           login_provider.userSignIn();
