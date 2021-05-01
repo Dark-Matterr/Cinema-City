@@ -1,6 +1,8 @@
 import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/screens/login.dart';
 import 'package:cinema_city/screens/movie.dart';
+import 'package:cinema_city/screens/movie_picker.dart';
+import 'package:cinema_city/screens/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
         canvasColor: cBgColor,
         appBarTheme: AppBarTheme(
           elevation: 0,
+          color: Color(0x44000000),
         ),
         scaffoldBackgroundColor: cBgColor,
         textTheme: GoogleFonts.dmSansTextTheme().apply(
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MovieScreen(),
+      home: RegistrationScreen(),
     );
   }
 }

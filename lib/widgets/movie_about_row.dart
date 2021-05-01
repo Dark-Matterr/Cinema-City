@@ -2,9 +2,9 @@ import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
 
 class MovieAboutList extends StatelessWidget {
-  String about;
-  String parameter;
-  MovieAboutList(this.about, this.parameter);
+  final String about;
+  final String parameter;
+  const MovieAboutList(this.about, this.parameter);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +13,7 @@ class MovieAboutList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "${about}: ",
+            "$about: ",
             style: TextStyle(
               fontSize: SizeConfig.defaultSize * 1.7,
               color: Color(0xffa5a5a5),

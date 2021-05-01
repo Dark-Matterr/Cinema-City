@@ -10,7 +10,6 @@ class MovieScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0x44000000),
         leading: Icon(Icons.close),
       ),
       body: SingleChildScrollView(
@@ -28,7 +27,7 @@ class MovieScreen extends StatelessWidget {
                         fit: BoxFit.fill,
                         colorFilter: new ColorFilter.mode(
                             Colors.black.withOpacity(0.2), BlendMode.darken),
-                        image: AssetImage("assets/sample_movie.jpg"),
+                        image: AssetImage("assets/your_name.jpg"),
                       ),
                     ),
                     child: Container(
@@ -49,8 +48,8 @@ class MovieScreen extends StatelessWidget {
                           Container(
                             child: Row(
                               children: [
-                                GenreListTile("Drama"),
-                                GenreListTile("Action"),
+                                GenreListTile("Romance"),
+                                GenreListTile("Fantasy"),
                               ],
                             ),
                           ),
@@ -82,7 +81,9 @@ class MovieScreen extends StatelessWidget {
                     Container(
                       child: Text(
                         "Mitsuha is the daughter of the mayor of a small mountain town. She's a straightforward high school girl who lives with her sister and her grandmother and has no qualms about letting it be known that she's uninterested in Shinto rituals or helping her father's electoral campaign. Instead she dreams of leaving the boring town and trying her luck in Tokyo. Taki is a high school boy in Tokyo who works part-time in an Italian restaurant and aspires to become an architect or an artist. Every night he has a strange dream where he becomes...a high school girl in a small mountain town. ",
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: SizeConfig.defaultSize * 1.4),
                       ),
                     )
                   ],

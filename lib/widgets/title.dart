@@ -3,8 +3,8 @@ import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TitleWidget extends StatelessWidget {
-  double titleSize = 0;
-  TitleWidget(this.titleSize);
+  final double titleSize;
+  const TitleWidget(this.titleSize);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

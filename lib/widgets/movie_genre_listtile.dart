@@ -4,8 +4,8 @@ import '../constant.dart';
 import '../size_config.dart';
 
 class GenreListTile extends StatelessWidget {
-  String genretxt;
-  GenreListTile(this.genretxt);
+  final String genretxt;
+  const GenreListTile(this.genretxt);
   @override
   Widget build(BuildContext context) {
     return Container(

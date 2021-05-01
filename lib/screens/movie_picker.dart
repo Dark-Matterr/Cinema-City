@@ -4,8 +4,8 @@ import 'package:cinema_city/widgets/movie_listtile.dart';
 import 'package:flutter/material.dart';
 
 class MoviePickerScreen extends StatelessWidget {
-  List<int> data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
+  final List<int> data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  MoviePickerScreen();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,7 +50,6 @@ class MoviePickerScreen extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Color(0x44000000),
         actions: [Icon(Icons.search)],
       ),
       body: Container(

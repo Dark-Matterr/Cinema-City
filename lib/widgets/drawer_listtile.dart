@@ -2,10 +2,10 @@ import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
 
 class DrawerListTile extends StatelessWidget {
-  IconData icon;
-  String title;
-  Function ontap;
-  DrawerListTile(this.icon, this.title, this.ontap);
+  final IconData icon;
+  final String title;
+  final Function ontap;
+  const DrawerListTile(this.icon, this.title, this.ontap);
 
   @override
   Widget build(BuildContext context) {

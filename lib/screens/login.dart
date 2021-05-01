@@ -1,12 +1,20 @@
 import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/provider/login_model.dart';
 import 'package:cinema_city/size_config.dart';
+import 'package:cinema_city/widgets/rounded_button.dart';
+import 'package:cinema_city/widgets/rounded_textcontainer.dart';
 import 'package:cinema_city/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen();
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -16,11 +24,18 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LoginChildWdiget extends StatelessWidget {
+class LoginChildWdiget extends StatefulWidget {
+  @override
+  _LoginChildWdigetState createState() => _LoginChildWdigetState();
+}
+
+class _LoginChildWdigetState extends State<LoginChildWdiget> {
   final _key = GlobalKey<FormState>();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final login_provider = Provider.of<LoginModel>(context, listen: false);
+    final loginProvider = Provider.of<LoginModel>(context, listen: false);
     SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -41,75 +56,62 @@ class LoginChildWdiget extends StatelessWidget {
             Container(child: TitleWidget(4.0)),
             //Login Form
             Container(
-              margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.09),
+              margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.05),
               width: SizeConfig.screenWidth * 0.8,
               child: Form(
                 key: _key,
                 child: Column(
                   children: [
                     // Email address textfield
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: SizeConfig.screenHeight * 0.01),
+                    TextContainer(
                       child: TextFormField(
-                        style: TextStyle(color: Colors.white),
+                        controller: _email,
+                        style: TextStyle(color: Colors.black),
                         decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffc1071e))),
+                          border: InputBorder.none,
                           prefixIcon: Icon(
-                            Icons.email,
-                            color: Colors.white,
+                            Icons.person,
+                            color: Colors.black,
                           ),
                           hintText: "Email Address",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
                     // Password textfield
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: SizeConfig.screenHeight * 0.01),
+                    TextContainer(
                       child: TextFormField(
+                        controller: _password,
                         obscureText: true,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                         decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffc1071e))),
+                          border: InputBorder.none,
                           prefixIcon: Icon(
                             Icons.vpn_key,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
-                    // Login Button
                     Container(
-                      width: SizeConfig.screenHeight,
-                      margin: EdgeInsets.only(top: SizeConfig.defaultSize),
-                      child: RaisedButton(
-                        textColor: Colors.white,
-                        child: Text("Sign In",
-                            style: TextStyle(
-                                fontSize: SizeConfig.defaultSize * 2)),
-                        color: cPrimaryColor,
-                        onPressed: () {
-                          login_provider.userSignIn();
-                          print(login_provider.getresp);
-                        },
-                      ),
-                    ),
-                    //Register Button
-                    Container(
-                      width: SizeConfig.screenHeight,
-                      child: RaisedButton(
-                        textColor: Colors.white,
-                        child: Text("Register",
-                            style: TextStyle(
-                                fontSize: SizeConfig.defaultSize * 2)),
-                        color: cSecondaryColor,
-                        onPressed: () {},
+                      margin: EdgeInsets.only(top: SizeConfig.defaultSize * 2),
+                      child: Column(
+                        children: [
+                          // Login Button
+                          RoundedButton(
+                            text: "Sign In",
+                            color: cPrimaryColor,
+                            onPress: () => print("x"),
+                          ),
+                          //Register Button
+                          RoundedButton(
+                            text: "Sign Up",
+                            color: cSecondaryColor,
+                            onPress: () => print("x"),
+                          )
+                        ],
                       ),
                     ),
                   ],
