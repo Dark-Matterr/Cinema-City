@@ -1,8 +1,6 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/screens/login.dart';
-import 'package:cinema_city/screens/movie.dart';
-import 'package:cinema_city/screens/movie_picker.dart';
-import 'package:cinema_city/screens/registration.dart';
+import 'package:cinema_city/routes/login.dart';
+import 'package:cinema_city/routes/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
