@@ -1,3 +1,5 @@
+import 'package:cinema_city/provider/access_model.dart';
+import 'package:cinema_city/routes.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:cinema_city/widgets/drawer_listtile.dart';
 import 'package:cinema_city/widgets/movie_listtile.dart';
@@ -44,7 +46,11 @@ class MoviePickerScreen extends StatelessWidget {
                 )),
             DrawerListTile(Icons.person, "Profile", () {}),
             DrawerListTile(Icons.clean_hands, "Agreement", () {}),
-            DrawerListTile(Icons.logout, "Logout", () {}),
+            DrawerListTile(Icons.logout, "Logout", () {
+              Future<void> logout = AccessModel().userLogout();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RouteGenerator.loginPage, (route) => false);
+            }),
           ],
         ),
       ),

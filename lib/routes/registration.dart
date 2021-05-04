@@ -1,24 +1,48 @@
 import 'package:cinema_city/constant.dart';
+import 'package:cinema_city/provider/access_model.dart';
+import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:cinema_city/widgets/rectangle_button.dart';
 import 'package:cinema_city/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../size_config.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen();
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => AccessModel(),
+      child: RegistrationChildWdiget(),
+    );
+  }
+}
+
+class RegistrationChildWdiget extends StatefulWidget {
+  @override
+  _RegistrationChildWdiget createState() => _RegistrationChildWdiget();
+}
+
+class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
   final _key = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _fname = TextEditingController();
   final _lname = TextEditingController();
   final _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final _regprovider = Provider.of<AccessModel>(context);
     SizeConfig().init(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        actions: [Icon(Icons.arrow_back)],
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
@@ -93,7 +117,41 @@ class RegistrationScreen extends StatelessWidget {
                         child: RectangleButton(
                           color: cSecondaryColor,
                           text: "Register",
-                          onPress: () {},
+                          onPress: () async {
+                            int result = await _regprovider.register(
+                              email: _email.text,
+                              fname: _fname.text,
+                              lname: _lname.text,
+                              password: _password.text,
+                            );
+                            if (result == 1) {
+                              showDialog(
+                                context: context,
+                                child: CustomAlertDialog(
+                                  title: "Registered Successfully",
+                                  body: "You can now login to the cinema city!",
+                                  actionText: "Ok",
+                                  onPress: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              );
+                            } else if (result == 0) {
+                              showDialog(
+                                context: context,
+                                child: CustomAlertDialog(
+                                  title:
+                                      "The email was already exist in the database",
+                                  body:
+                                      "Please try different email address or login with this existing account.",
+                                  actionText: "Login",
+                                  onPress: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              );
+                            }
+                          },
                         ),
                       )
                     ],

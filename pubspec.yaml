@@ -32,6 +32,7 @@ dependencies:
   http: ^0.12.2
   smooth_star_rating: ^1.1.1
   scroll_snap_list: ^0.6.0
+  shared_preferences: ^0.5.12+4
   cupertino_icons: ^1.0.0
 
 dev_dependencies:

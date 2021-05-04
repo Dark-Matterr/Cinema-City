@@ -1,18 +1,27 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/routes/login.dart';
-import 'package:cinema_city/routes/registration.dart';
+import 'package:cinema_city/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  int session = prefs.getInt('user_id');
+  runApp(MyApp(session));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final int session;
+  const MyApp(this.session);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: (session == null)
+          ? RouteGenerator.loginPage
+          : RouteGenerator.homePage,
+      onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
       title: 'Cinema City',
       theme: ThemeData(
@@ -28,7 +37,6 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RegistrationScreen(),
     );
   }
 }

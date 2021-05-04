@@ -1,5 +1,6 @@
 import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/provider/access_model.dart';
+import 'package:cinema_city/routes.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:cinema_city/widgets/rectangle_button.dart';
@@ -7,6 +8,7 @@ import 'package:cinema_city/widgets/text_field.dart';
 import 'package:cinema_city/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen();
@@ -93,20 +95,32 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                       color: cPrimaryColor,
                                       onPress: () async {
                                         isLoading = true;
-                                        await _loginProvider.login(
+                                        var _result =
+                                            await _loginProvider.login(
                                           email: _email.text,
                                           password: _password.text,
                                         );
                                         isLoading = false;
                                         // Username and password match
-                                        if (_loginProvider.getResp == 1) {
+                                        if (_result == 1) {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  RouteGenerator.homePage);
                                         }
                                         // Error in http request
-                                        else if (_loginProvider.getResp == -1) {
+                                        else if (_result == -1) {
                                           showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return CustomAlertDialog();
+                                                return CustomAlertDialog(
+                                                  title: " maintenance",
+                                                  body:
+                                                      "Please wait for hours to go back to our server. Thank you!",
+                                                  actionText: "Ok",
+                                                  onPress: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                );
                                               });
                                         }
                                         // Incorrect Username or password
@@ -114,7 +128,16 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                           showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return CustomAlertDialog();
+                                                return CustomAlertDialog(
+                                                  title:
+                                                      "Incorrect email or password",
+                                                  body:
+                                                      "Please check your inputs.",
+                                                  actionText: "Try Again",
+                                                  onPress: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                );
                                               });
                                         }
                                       }),
@@ -122,7 +145,8 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                   RectangleButton(
                                     text: "Register",
                                     color: cSecondaryColor,
-                                    onPress: () => print("x"),
+                                    onPress: () => Navigator.of(context)
+                                        .pushNamed(RouteGenerator.registerPage),
                                   )
                                 ],
                               ),
