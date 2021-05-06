@@ -1,11 +1,11 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/provider/access_model.dart';
+import 'package:cinema_city/provider/user.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:cinema_city/widgets/rectangle_button.dart';
 import 'package:cinema_city/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import '../size_config.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AccessModel(),
+      create: (context) => UserServices(),
       child: RegistrationChildWdiget(),
     );
   }
@@ -38,7 +38,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
 
   @override
   Widget build(BuildContext context) {
-    final _regprovider = Provider.of<AccessModel>(context);
+    final _regprovider = Provider.of<UserServices>(context);
     SizeConfig().init(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -46,9 +46,14 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.12),
+          margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.11),
           child: Column(
             children: [
+              // User Image
+              Lottie.asset(
+                "assets/otp.json",
+                height: SizeConfig.defaultSize * 20,
+              ),
               //Registration Text
               Container(
                 margin: EdgeInsets.only(
@@ -63,11 +68,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                   ),
                 ),
               ),
-              // User Image
-              Image(
-                image: AssetImage("assets/icons/soft-drink.png"),
-                width: SizeConfig.defaultSize * 14,
-              ),
+
               //Forms
               Container(
                 margin: EdgeInsets.only(top: SizeConfig.defaultSize * 2),
@@ -127,7 +128,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                             if (result == 1) {
                               showDialog(
                                 context: context,
-                                child: CustomAlertDialog(
+                                builder: (context) => CustomAlertDialog(
                                   title: "Registered Successfully",
                                   body: "You can now login to the cinema city!",
                                   actionText: "Ok",
@@ -139,7 +140,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                             } else if (result == 0) {
                               showDialog(
                                 context: context,
-                                child: CustomAlertDialog(
+                                builder: (context) => CustomAlertDialog(
                                   title:
                                       "The email was already exist in the database",
                                   body:

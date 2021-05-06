@@ -1,5 +1,5 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/provider/access_model.dart';
+import 'package:cinema_city/provider/user.dart';
 import 'package:cinema_city/routes.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
@@ -8,7 +8,6 @@ import 'package:cinema_city/widgets/text_field.dart';
 import 'package:cinema_city/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen();
@@ -21,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AccessModel(),
+      create: (context) => UserServices(),
       child: LoginChildWdiget(),
     );
   }
@@ -39,7 +38,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final _loginProvider = Provider.of<AccessModel>(context);
+    final _loginProvider = Provider.of<UserServices>(context);
     SizeConfig().init(context);
     return Scaffold(
         body: (!isLoading)
@@ -143,7 +142,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                       }),
                                   //Register Button
                                   RectangleButton(
-                                    text: "Register",
+                                    text: "Create new account",
                                     color: cSecondaryColor,
                                     onPress: () => Navigator.of(context)
                                         .pushNamed(RouteGenerator.registerPage),

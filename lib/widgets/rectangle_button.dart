@@ -12,7 +12,7 @@ class RectangleButton extends StatelessWidget {
     return Container(
       width: SizeConfig.screenHeight,
       margin: EdgeInsets.only(top: SizeConfig.defaultSize),
-      child: RaisedButton(
+      child: MaterialButton(
         padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize * 0.8),
         textColor: Colors.white,
         child:

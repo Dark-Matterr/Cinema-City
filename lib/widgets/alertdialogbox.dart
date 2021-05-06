@@ -23,7 +23,7 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       content: Text(body),
       actions: [
-        FlatButton(
+        MaterialButton(
           textColor: Colors.white,
           onPressed: onPress,
           child: Text(

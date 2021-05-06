@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AccessModel with ChangeNotifier {
+class UserServices with ChangeNotifier {
   final String _url = "http://192.168.152.2/cinema/access.php";
 
   // Signing in request
@@ -28,8 +27,10 @@ class AccessModel with ChangeNotifier {
       } else {
         return 0;
       }
+    } else {
+      notifyListeners();
+      throw Exception('Failed to Load the Server');
     }
-    notifyListeners();
   }
 
   // Register request

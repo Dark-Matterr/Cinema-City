@@ -1,4 +1,5 @@
 import 'package:cinema_city/routes/login.dart';
+import 'package:cinema_city/routes/movie.dart';
 import 'package:cinema_city/routes/movie_picker.dart';
 import 'package:cinema_city/routes/registration.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ class RouteGenerator {
   static const String homePage = '/';
   static const String loginPage = '/login';
   static const String registerPage = '/register';
+  static const String moviePage = '/movieinfo';
 
   RouteGenerator._();
 
@@ -19,6 +21,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case registerPage:
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
+      case moviePage:
+        return MaterialPageRoute(builder: (_) => MovieScreen());
       default:
         throw FormatException("Routes Not Found");
     }
