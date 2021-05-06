@@ -1,3 +1,4 @@
+import 'package:cinema_city/routes/booking.dart';
 import 'package:cinema_city/routes/login.dart';
 import 'package:cinema_city/routes/movie.dart';
 import 'package:cinema_city/routes/movie_picker.dart';
@@ -10,6 +11,7 @@ class RouteGenerator {
   static const String loginPage = '/login';
   static const String registerPage = '/register';
   static const String moviePage = '/movieinfo';
+  static const String bookPage = '/booking';
 
   RouteGenerator._();
 
@@ -23,6 +25,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
       case moviePage:
         return MaterialPageRoute(builder: (_) => MovieScreen());
+      case bookPage:
+        return MaterialPageRoute(builder: (_) => BookingScreen());
       default:
         throw FormatException("Routes Not Found");
     }

@@ -30,6 +30,8 @@ class MovieServices {
     }
   }
 
+  List<List> get genres => (_movies).map((e) => e.genre.split(",")).toList();
+
   int get index => _index;
   set index(int value) {
     if ((value >= 0)) {

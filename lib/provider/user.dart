@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices with ChangeNotifier {
@@ -16,7 +16,7 @@ class UserServices with ChangeNotifier {
       "user_pass": password,
       "access": "login",
     };
-    var res = await post(_url, body: data);
+    var res = await http.post(_url, body: data);
 
     if (res.statusCode == 200) {
       var status = jsonDecode(res.body);
@@ -28,7 +28,6 @@ class UserServices with ChangeNotifier {
         return 0;
       }
     } else {
-      notifyListeners();
       throw Exception('Failed to Load the Server');
     }
   }
@@ -47,7 +46,7 @@ class UserServices with ChangeNotifier {
       "reg_pass": password,
       "access": "register",
     };
-    var res = await post(_url, body: data);
+    var res = await http.post(_url, body: data);
     if (res.statusCode == 200) {
       notifyListeners();
       return jsonDecode(res.body);
