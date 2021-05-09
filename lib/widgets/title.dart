@@ -13,7 +13,7 @@ class TitleWidget extends StatelessWidget {
       style: TextStyle(
           fontSize: SizeConfig.defaultSize * titleSize,
           fontWeight: FontWeight.bold,
-          color: cPrimaryColor),
+          color: cButtonColor),
     );
   }
 }

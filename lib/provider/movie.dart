@@ -8,7 +8,7 @@ class MovieServices {
   List<Movie> _movies;
   MovieServices();
   Future<List<Movie>> getMovie() async {
-    final String _url = "http://192.168.152.2/cinema/access.php";
+    final String _url = "http://192.168.152.2/cinema/api.php";
     var res = await http.post(_url,
         body: {"access": "movies"}, headers: {"Accept": "application/json"});
 
@@ -30,8 +30,10 @@ class MovieServices {
     }
   }
 
+  // get the specific genres of a movie
   List<List> get genres => (_movies).map((e) => e.genre.split(",")).toList();
 
+  // Routing index cache index
   int get index => _index;
   set index(int value) {
     if ((value >= 0)) {

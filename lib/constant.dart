@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-const cPrimaryColor = Color(0xffc1071e);
-const cSecondaryColor = Color(0xffec7532);
-const cBgColor = Color(0xFF151515);
-
+const cBgColor = Color(0xff222128);
 const cAppbarColor = Color(0xff1a1a1a);
 const cStarColor = Color(0xffffd433);
+const cButtonColor = Color(0xfff47669);
+const cAccents = Color(0xff65bfa6);

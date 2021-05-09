@@ -39,7 +39,6 @@ class MovieScreen extends StatelessWidget {
                   ),
                 ),
 
-                //Sypnosis
                 Container(
                   color: Color(0xff1a1a1a),
                   padding: EdgeInsets.symmetric(
@@ -76,7 +75,7 @@ class MovieScreen extends StatelessWidget {
                         "Sypnosis\n",
                         style: TextStyle(
                           fontSize: SizeConfig.defaultSize * 1.8,
-                          color: cSecondaryColor,
+                          color: Colors.white,
                         ),
                       ),
                       // Sypnosis description
@@ -107,7 +106,7 @@ class MovieScreen extends StatelessWidget {
                         "About\n",
                         style: TextStyle(
                           fontSize: SizeConfig.defaultSize * 1.8,
-                          color: cSecondaryColor,
+                          color: Colors.white,
                         ),
                       ),
                       Column(
@@ -143,7 +142,7 @@ class MovieScreen extends StatelessWidget {
                         "Ratings\n",
                         style: TextStyle(
                           fontSize: SizeConfig.defaultSize * 1.8,
-                          color: cSecondaryColor,
+                          color: Colors.white,
                         ),
                       ),
                       Center(
@@ -169,7 +168,7 @@ class MovieScreen extends StatelessWidget {
           width: 1,
           child: MaterialButton(
             padding: EdgeInsets.all(SizeConfig.defaultSize * 0.6),
-            color: cPrimaryColor,
+            color: cButtonColor,
             onPressed: () {
               Navigator.pushNamed(context, RouteGenerator.bookPage);
             },

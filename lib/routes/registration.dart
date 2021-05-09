@@ -64,7 +64,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                   style: TextStyle(
                     fontSize: SizeConfig.defaultSize * 2.5,
                     fontWeight: FontWeight.bold,
-                    color: cSecondaryColor,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -80,35 +80,35 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                       // Email Address TextField
                       CustomTextField(
                         text: "Email Address",
-                        color: cSecondaryColor,
+                        color: Colors.white,
                         control: _email,
                         secured: false,
                       ),
                       // First Name TextField
                       CustomTextField(
                         text: "First Name",
-                        color: cSecondaryColor,
+                        color: Colors.white,
                         control: _fname,
                         secured: false,
                       ),
                       // Last Name TextField
                       CustomTextField(
                         text: "Last Name",
-                        color: cSecondaryColor,
+                        color: Colors.white,
                         control: _lname,
                         secured: false,
                       ),
                       // Password TextField
                       CustomTextField(
                         text: "Password",
-                        color: cSecondaryColor,
+                        color: Colors.white,
                         control: _password,
                         secured: true,
                       ),
                       // Retype Password TextField
                       CustomTextField(
                         text: "Retype the password",
-                        color: cSecondaryColor,
+                        color: Colors.white,
                         secured: true,
                       ),
                       // Rounded Register Button
@@ -116,7 +116,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                         margin:
                             EdgeInsets.only(top: SizeConfig.defaultSize * 2),
                         child: RectangleButton(
-                          color: cSecondaryColor,
+                          color: cAccents,
                           text: "Register",
                           onPress: () async {
                             int result = await _regprovider.register(

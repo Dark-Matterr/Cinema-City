@@ -34,6 +34,8 @@ dependencies:
   scroll_snap_list: ^0.6.0
   shared_preferences: ^2.0.5
   lottie: ^0.7.0+1
+  toggle_switch: "^0.1.9"
+  intl: ^0.17.0
   cupertino_icons: ^1.0.0
 
 dev_dependencies:

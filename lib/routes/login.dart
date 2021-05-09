@@ -70,7 +70,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                             // Email address textfield
                             CustomTextField(
                               text: "Email Address",
-                              color: cSecondaryColor,
+                              color: Colors.white,
                               icon: Icons.person,
                               secured: false,
                               control: _email,
@@ -78,7 +78,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                             // Password textfield
                             CustomTextField(
                               text: "Password",
-                              color: cSecondaryColor,
+                              color: Colors.white,
                               icon: Icons.vpn_key,
                               secured: true,
                               control: _password,
@@ -91,7 +91,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                   // Login Button
                                   RectangleButton(
                                       text: "Log In",
-                                      color: cPrimaryColor,
+                                      color: cButtonColor,
                                       onPress: () async {
                                         isLoading = true;
                                         var _result =
@@ -143,7 +143,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                   //Register Button
                                   RectangleButton(
                                     text: "Create new account",
-                                    color: cSecondaryColor,
+                                    color: cAccents,
                                     onPress: () => Navigator.of(context)
                                         .pushNamed(RouteGenerator.registerPage),
                                   )
