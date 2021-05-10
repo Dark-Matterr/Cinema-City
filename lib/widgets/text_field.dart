@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
   final Color color;
   final IconData icon;
   final bool secured;
-  CustomTextField(
+  const CustomTextField(
       {this.text, this.color, this.icon, this.secured, this.control});
   @override
   Widget build(BuildContext context) {

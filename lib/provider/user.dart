@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:cinema_city/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices with ChangeNotifier {
   final String _url = "http://192.168.152.2/cinema/api.php";
+
+  UserServices();
 
   // Signing in request
   Future<int> login({
@@ -20,12 +23,17 @@ class UserServices with ChangeNotifier {
 
     if (res.statusCode == 200) {
       var status = jsonDecode(res.body);
-      if (status >= 1) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setInt('user_id', status);
-        return 1;
-      } else {
+      if (status == 0) {
         return 0;
+      } else {
+        final prefs = await SharedPreferences.getInstance();
+        List<User> userInfo =
+            (status as List).map((val) => User.fromJson(val)).toList();
+        await prefs.setInt('user_id', userInfo[0].userId);
+        await prefs.setString('user_email', userInfo[0].userEmail);
+        await prefs.setString('user_fname', userInfo[0].userFname);
+        await prefs.setString('user_lname', userInfo[0].userLname);
+        return 1;
       }
     } else {
       throw Exception('Failed to Load the Server');
@@ -64,5 +72,8 @@ class UserServices with ChangeNotifier {
   Future<void> userLogout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("user_id");
+    prefs.remove("user_email");
+    prefs.remove("user_fname");
+    prefs.remove("user_lname");
   }
 }

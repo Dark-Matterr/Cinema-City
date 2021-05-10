@@ -6,7 +6,7 @@ class Schedule {
   final String timestart;
   final String timeend;
 
-  // Singleton class
+  // Singleton pattern
   const Schedule._({
     this.schedId,
     this.movieId,

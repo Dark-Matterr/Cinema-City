@@ -1,4 +1,5 @@
 import 'package:cinema_city/constant.dart';
+import 'package:cinema_city/provider/booking.dart';
 import 'package:cinema_city/provider/movie.dart';
 import 'package:cinema_city/routes.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         providers: [
           Provider<MovieServices>(
             create: (context) => MovieServices(),
+          ),
+          Provider<BookingServices>(
+            create: (context) => BookingServices(),
           )
         ],
         child: MaterialApp(

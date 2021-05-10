@@ -17,6 +17,7 @@ class MoviePickerScreen extends StatelessWidget {
 }
 
 class MoviePickerChild extends StatelessWidget {
+  const MoviePickerChild();
   @override
   Widget build(BuildContext context) {
     return Consumer<MovieServices>(builder: (context, cache, _) {
@@ -61,7 +62,8 @@ class MoviePickerChild extends StatelessWidget {
                             ],
                           )),
                       DrawerListTile(Icons.person, "Profile", () {}),
-                      DrawerListTile(Icons.clean_hands, "Agreement", () {}),
+                      DrawerListTile(
+                          Icons.clean_hands, "Purchase History", () {}),
                       DrawerListTile(Icons.logout, "Logout", () {
                         UserServices().userLogout();
                         Navigator.pushNamedAndRemoveUntil(context,
@@ -99,7 +101,8 @@ class MoviePickerChild extends StatelessWidget {
                 ),
               );
             }
-            return Center(child: Image.asset("assets/icons/ripple.gif"));
+            return Scaffold(
+                body: Center(child: Image.asset("assets/icons/ripple.gif")));
           });
     });
   }

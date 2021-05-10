@@ -7,6 +7,7 @@ class MovieServices {
   int _index = -1;
   List<Movie> _movies;
   MovieServices();
+
   Future<List<Movie>> getMovie() async {
     final String _url = "http://192.168.152.2/cinema/api.php";
     var res = await http.post(_url,
