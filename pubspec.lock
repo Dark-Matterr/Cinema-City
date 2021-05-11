@@ -288,7 +288,7 @@ packages:
       name: scroll_snap_list
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.0"
+    version: "0.8.0"
   shared_preferences:
     dependency: "direct main"
     description:

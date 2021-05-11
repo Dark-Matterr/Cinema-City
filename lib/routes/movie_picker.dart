@@ -62,8 +62,10 @@ class MoviePickerChild extends StatelessWidget {
                             ],
                           )),
                       DrawerListTile(Icons.person, "Profile", () {}),
-                      DrawerListTile(
-                          Icons.clean_hands, "Purchase History", () {}),
+                      DrawerListTile(Icons.clean_hands, "Purchase History", () {
+                        Navigator.of(context)
+                            .pushNamed(RouteGenerator.historyPage);
+                      }),
                       DrawerListTile(Icons.logout, "Logout", () {
                         UserServices().userLogout();
                         Navigator.pushNamedAndRemoveUntil(context,

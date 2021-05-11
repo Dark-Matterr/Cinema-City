@@ -1,6 +1,7 @@
 import 'package:cinema_city/constant.dart';
-import 'package:cinema_city/provider/booking.dart';
+
 import 'package:cinema_city/provider/movie.dart';
+import 'package:cinema_city/provider/ticket.dart';
 import 'package:cinema_city/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
           Provider<MovieServices>(
             create: (context) => MovieServices(),
           ),
-          Provider<BookingServices>(
-            create: (context) => BookingServices(),
+          Provider<TicketCache>(
+            create: (context) => TicketCache(),
           )
         ],
         child: MaterialApp(

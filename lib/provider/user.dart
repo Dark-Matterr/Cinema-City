@@ -3,12 +3,9 @@ import 'package:cinema_city/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../constant.dart';
 
 class UserServices with ChangeNotifier {
-  final String _url = "http://192.168.152.2/cinema/api.php";
-
-  UserServices();
-
   // Signing in request
   Future<int> login({
     String email,
@@ -19,7 +16,7 @@ class UserServices with ChangeNotifier {
       "user_pass": password,
       "access": "login",
     };
-    var res = await http.post(_url, body: data);
+    var res = await http.post(server_url, body: data);
 
     if (res.statusCode == 200) {
       var status = jsonDecode(res.body);
@@ -54,7 +51,7 @@ class UserServices with ChangeNotifier {
       "reg_pass": password,
       "access": "register",
     };
-    var res = await http.post(_url, body: data);
+    var res = await http.post(server_url, body: data);
     if (res.statusCode == 200) {
       notifyListeners();
       return jsonDecode(res.body);

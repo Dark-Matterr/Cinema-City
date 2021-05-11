@@ -3,14 +3,15 @@ import 'dart:core';
 import 'package:cinema_city/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../constant.dart';
+
 class MovieServices {
   int _index = -1;
   List<Movie> _movies;
   MovieServices();
 
   Future<List<Movie>> getMovie() async {
-    final String _url = "http://192.168.152.2/cinema/api.php";
-    var res = await http.post(_url,
+    var res = await http.post(server_url,
         body: {"access": "movies"}, headers: {"Accept": "application/json"});
 
     if (res.statusCode == 200) {

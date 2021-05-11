@@ -1,5 +1,6 @@
 import 'package:cinema_city/provider/booking.dart';
 import 'package:cinema_city/provider/movie.dart';
+import 'package:cinema_city/provider/ticket.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -313,44 +314,56 @@ class BookingScreenChild extends StatelessWidget {
                                 ),
                               ]),
                         ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(cAccents),
-                          ),
-                          child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: SizeConfig.defaultSize * 2,
-                                horizontal: SizeConfig.defaultSize * 2,
-                              ),
-                              child: Icon(Icons.arrow_forward)),
-                          onPressed: () async {
-                            int codeStatus = await cache.bookSeatNow(
-                              movieCache.movie[movieCache.index].id,
-                              movieCache.movie[movieCache.index].title,
-                              movieCache.movie[movieCache.index].price,
-                            );
+                        Consumer<TicketCache>(
+                          builder: (_, ticketCache, __) => ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(cAccents),
+                            ),
+                            child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.defaultSize * 2,
+                                  horizontal: SizeConfig.defaultSize * 2,
+                                ),
+                                child: Icon(Icons.arrow_forward)),
+                            onPressed: () async {
+                              int codeStatus = await cache.bookSeatNow(
+                                movieCache.movie[movieCache.index].id,
+                                movieCache.movie[movieCache.index].title,
+                                movieCache.movie[movieCache.index].price,
+                              );
 
-                            if (codeStatus == 1) {
-                              cache.totalSeatReset();
-                              Navigator.pushNamedAndRemoveUntil(context,
-                                  RouteGenerator.ticketPage, (x) => false);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return CustomAlertDialog(
-                                      title: "Please check and choose wisely",
-                                      body:
-                                          "Please pick some seats or schedule for your reservation.",
-                                      actionText: "Ok",
-                                      onPress: () {
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                  });
-                            }
-                          },
+                              if (codeStatus == 1) {
+                                // Cache the values from ticket provider
+                                ticketCache.selSeats = cache.selectedSeats();
+                                ticketCache.movieTitle =
+                                    movieCache.movie[movieCache.index].title;
+                                ticketCache.runtime = cache.selTime;
+                                ticketCache.movieGenre = movieCache
+                                    .movie[movieCache.index].genre
+                                    .split(",");
+                                ticketCache.ticketId =
+                                    await cache.generateTicketId(
+                                        movieCache.movie[movieCache.index].id);
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    RouteGenerator.ticketPage, (x) => false);
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return CustomAlertDialog(
+                                        title: "Please check and choose wisely",
+                                        body:
+                                            "Please pick some seats or schedule for your reservation.",
+                                        actionText: "Ok",
+                                        onPress: () {
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    });
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),

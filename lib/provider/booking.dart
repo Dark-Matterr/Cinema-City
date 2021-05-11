@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constant.dart';
+
 class BookingServices with ChangeNotifier {
-  final String _url = "http://192.168.152.2/cinema/api.php";
   DateTime parseSel;
   String _selDate;
   String _selTime;
@@ -23,7 +24,7 @@ class BookingServices with ChangeNotifier {
       "access": "moviesched",
       "movie_id": movieid,
     };
-    var res = await http.post(_url, body: data);
+    var res = await http.post(server_url, body: data);
     if (res.statusCode == 200) {
       var list = jsonDecode(res.body) as List;
       var sched = list.map((val) => Schedule.fromJson(val)).toList();
@@ -44,7 +45,7 @@ class BookingServices with ChangeNotifier {
       "reserve_time": reserveHour,
       "reserve_day": reserveDay,
     };
-    var res = await http.post(_url, body: data);
+    var res = await http.post(server_url, body: data);
     if (res.statusCode == 200) {
       var jsonlist = jsonDecode(res.body) as List;
       List<String> intlist = jsonlist.map((e) => e.toString()).toList();
@@ -152,6 +153,17 @@ class BookingServices with ChangeNotifier {
     return selection;
   }
 
+  Future<String> generateTicketId(int movieId) async {
+    final prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt('user_id');
+    String schedId = (parseSel != null)
+        ? "$movieId${parseSel.hour}${parseSel.year}${parseSel.day}"
+        : null;
+    String ticketId = "$userId$schedId";
+    return ticketId;
+  }
+
+//Button trigger reservation function
   Future<int> bookSeatNow(
     int movieId,
     String movieTitle,
@@ -181,7 +193,7 @@ class BookingServices with ChangeNotifier {
         "price": totalPrice(moviePrice).toString(),
         "access": "reservation",
       };
-      var res = await http.post(_url, body: data);
+      var res = await http.post(server_url, body: data);
       if (res.statusCode == 200) {
         return 1;
       } else {
