@@ -22,7 +22,7 @@ class User {
     );
   }
 
-  //
+  // Encode to JSON
   Map<String, dynamic> toJson() => {
         "customer_id": userId,
         "customer_email": userEmail,

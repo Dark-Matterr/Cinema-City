@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
           Provider<MovieServices>(
             create: (context) => MovieServices(),
           ),
-          Provider<TicketCache>(
-            create: (context) => TicketCache(),
+          Provider<TicketServices>(
+            create: (context) => TicketServices(),
           )
         ],
         child: MaterialApp(

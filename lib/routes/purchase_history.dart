@@ -1,4 +1,5 @@
 import 'package:cinema_city/provider/ticket.dart';
+import 'package:cinema_city/routes.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +9,7 @@ class PurchaseHistoryScreen extends StatelessWidget {
   const PurchaseHistoryScreen();
   @override
   Widget build(BuildContext context) {
-    return Consumer<TicketCache>(
+    return Consumer<TicketServices>(
       builder: (_, cache, __) => FutureBuilder(
           future: cache.getPurchaseHistory(),
           builder: (context, snapshot) {
@@ -28,7 +29,7 @@ class PurchaseHistoryScreen extends StatelessWidget {
                     children: [
                       // Now Showing
                       Text(
-                        "Now Showing",
+                        "Brought Tickets",
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: SizeConfig.defaultSize * 1.7,
@@ -50,7 +51,11 @@ class PurchaseHistoryScreen extends StatelessWidget {
                                     bottom: SizeConfig.defaultSize * 1.5,
                                   ),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      cache.index = index;
+                                      Navigator.of(context)
+                                          .pushNamed(RouteGenerator.ticketPage);
+                                    },
                                     splashColor: Colors.grey,
                                     child: Container(
                                       padding: EdgeInsets.symmetric(

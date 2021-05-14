@@ -5,8 +5,8 @@ import 'package:cinema_city/size_config.dart';
 import 'package:cinema_city/widgets/movie_about_row.dart';
 import 'package:cinema_city/widgets/movie_genre_listtile.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class MovieScreen extends StatelessWidget {
   const MovieScreen();
@@ -56,6 +56,15 @@ class MovieScreen extends StatelessWidget {
                             fontSize: SizeConfig.defaultSize * 3,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "PHP ${cache.movie[cache.index].price}".toString(),
+                          style: TextStyle(
+                            fontSize: SizeConfig.defaultSize * 2.5,
+                            color: cSecondaryColor,
                           ),
                         ),
                       ),
@@ -114,52 +123,14 @@ class MovieScreen extends StatelessWidget {
                         children: [
                           MovieAboutList(
                               "Director", cache.movie[cache.index].director),
-                          MovieAboutList(
-                              "Cast", "Ryunosuke Kamiki, Mone Kamishiraishi"),
+                          MovieAboutList("Cast", cache.movie[cache.index].cast),
                           MovieAboutList("Date Released",
-                              cache.movie[cache.index].release),
-                          MovieAboutList("Ticket Price",
-                              "P${cache.movie[cache.index].price}".toString()),
+                              "${DateFormat.yMMMMd().format(cache.movie[cache.index].release).toString()}"),
                         ],
                       )
                     ],
                   ),
                 ),
-                // Rating Star
-                Container(
-                  color: Color(0xff1a1a1a),
-                  width: SizeConfig.screenWidth,
-                  padding: EdgeInsets.only(
-                    left: SizeConfig.defaultSize * 1.2,
-                    right: SizeConfig.defaultSize * 1.2,
-                    top: SizeConfig.defaultSize * 1.2,
-                    bottom: SizeConfig.defaultSize * 2,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ratings\n",
-                        style: TextStyle(
-                          fontSize: SizeConfig.defaultSize * 1.8,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Center(
-                        child: SmoothStarRating(
-                            onRated: (v) {},
-                            starCount: 5,
-                            rating: 2,
-                            size: 40.0,
-                            isReadOnly: true,
-                            color: cStarColor,
-                            borderColor: Colors.white,
-                            defaultIconData: Icons.star,
-                            spacing: 0.0),
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           ),
@@ -168,7 +139,7 @@ class MovieScreen extends StatelessWidget {
           width: 1,
           child: MaterialButton(
             padding: EdgeInsets.all(SizeConfig.defaultSize * 0.6),
-            color: cButtonColor,
+            color: cPrimaryColor,
             onPressed: () {
               Navigator.pushNamed(context, RouteGenerator.bookPage);
             },

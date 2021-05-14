@@ -1,7 +1,7 @@
 class Purchase {
   final int ticketId;
   final String movieTitle;
-  final String seatNum;
+  final List<String> seatNum;
   final DateTime schedDate;
   final double price;
 
@@ -17,7 +17,7 @@ class Purchase {
     return Purchase._(
       ticketId: int.parse(json["ticket_id"]),
       movieTitle: json["movie_title"],
-      seatNum: json["seat_num"],
+      seatNum: json["seat_num"].toString().split(","),
       schedDate: DateTime.tryParse(
           "${json['sched_date'].toString()} ${json['sched_timestart'].toString()}"),
       price: double.parse(json['price']),

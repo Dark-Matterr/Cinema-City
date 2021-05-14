@@ -19,10 +19,14 @@ class MovieAboutList extends StatelessWidget {
               color: Color(0xffa5a5a5),
             ),
           ),
-          Text(
-            parameter,
-            style: TextStyle(
-              fontSize: SizeConfig.defaultSize * 1.5,
+          Container(
+            width: SizeConfig.defaultSize * 20,
+            child: Text(
+              parameter,
+              style: TextStyle(
+                fontSize: SizeConfig.defaultSize * 1.5,
+              ),
+              textAlign: TextAlign.end,
             ),
           ),
         ],

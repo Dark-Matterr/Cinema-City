@@ -6,6 +6,7 @@ import 'package:cinema_city/widgets/drawer_listtile.dart';
 import 'package:cinema_city/widgets/movie_listtile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MoviePickerScreen extends StatelessWidget {
   MoviePickerScreen();
@@ -53,11 +54,14 @@ class MoviePickerChild extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Text(
-                                "Dominic Antigua",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeConfig.defaultSize * 1.5),
+                              FutureBuilder(
+                                future: SharedPreferences.getInstance(),
+                                builder: (context, snapshot) => Text(
+                                  "${snapshot.data.getString("user_fname")} ${snapshot.data.getString("user_lname")}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: SizeConfig.defaultSize * 1.5),
+                                ),
                               )
                             ],
                           )),

@@ -6,7 +6,7 @@ class Movie {
   final String cast;
   final String genre;
   final String description;
-  final String release;
+  final DateTime release;
   final double price;
   final String time;
 
@@ -34,7 +34,7 @@ class Movie {
         cast: json["movie_cast"],
         genre: json["movie_genre"],
         description: json["movie_description"],
-        release: json["movie_released"],
+        release: DateTime.tryParse("${json["movie_released"].toString()}"),
         price: double.parse(json["movie_price"]),
         time: json["movie_time"]);
   }

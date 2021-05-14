@@ -6,12 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant.dart';
 
-class TicketCache {
+class TicketServices {
   List<int> _selSeats;
   List<String> _movieGenre;
   String _movieTitle;
   String _runtime;
   String _ticketId;
+  String username = "";
+  int index = -1;
 
   // Setter and getter of selected seats
   List<int> get selSeats => _selSeats;
@@ -51,7 +53,7 @@ class TicketCache {
     if (ticketid.isNotEmpty) _ticketId = ticketid;
   }
 
-//Fetch data from the server
+  //Fetch data from the server
   Future<List<Purchase>> getPurchaseHistory() async {
     final prefs = await SharedPreferences.getInstance();
     String userId = prefs.getInt("user_id").toString();
@@ -65,6 +67,8 @@ class TicketCache {
       var jsonList = jsonDecode(res.body) as List;
       List<Purchase> purchaseList =
           jsonList.map((e) => Purchase.fromJson(e)).toList();
+      username =
+          "${prefs.getString("user_fname")} ${prefs.getString("user_lname")}";
       return purchaseList;
     } else {
       throw Exception('Failed to Load the Server');

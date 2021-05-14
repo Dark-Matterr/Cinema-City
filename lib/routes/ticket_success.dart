@@ -6,8 +6,8 @@ import 'package:cinema_city/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TicketScreen extends StatelessWidget {
-  const TicketScreen();
+class TicketSuccesscreen extends StatelessWidget {
+  const TicketSuccesscreen();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -56,7 +56,7 @@ class TicketScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 // Ticket
-                Consumer<TicketCache>(
+                Consumer<TicketServices>(
                   builder: (_, cache, __) => SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

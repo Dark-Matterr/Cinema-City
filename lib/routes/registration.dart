@@ -1,5 +1,6 @@
 import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/provider/user.dart';
+import 'package:cinema_city/routes.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:cinema_city/widgets/rectangle_button.dart';
 import 'package:cinema_city/widgets/text_field.dart';
@@ -116,7 +117,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                         margin:
                             EdgeInsets.only(top: SizeConfig.defaultSize * 2),
                         child: RectangleButton(
-                          color: cAccents,
+                          color: cSecondaryColor,
                           text: "Register",
                           onPress: () async {
                             int result = await _regprovider.register(
@@ -125,26 +126,47 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                               lname: _lname.text,
                               password: _password.text,
                             );
-                            if (result == 1) {
+                            if (_email.text.isNotEmpty &&
+                                _fname.text.isNotEmpty &&
+                                _lname.text.isNotEmpty &&
+                                _password.text.isNotEmpty) {
+                              if (result == 1) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => CustomAlertDialog(
+                                    title: "Registered Successfully",
+                                    body:
+                                        "You can now login to the cinema city!",
+                                    actionText: "Ok",
+                                    onPress: () {
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          RouteGenerator.loginPage,
+                                          (route) => false);
+                                    },
+                                  ),
+                                );
+                              } else if (result == 0) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => CustomAlertDialog(
+                                    title:
+                                        "The email was already exist in the database",
+                                    body:
+                                        "Please try different email address or login with this existing account.",
+                                    actionText: "Login",
+                                    onPress: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                );
+                              }
+                            } else {
                               showDialog(
                                 context: context,
                                 builder: (context) => CustomAlertDialog(
-                                  title: "Registered Successfully",
-                                  body: "You can now login to the cinema city!",
-                                  actionText: "Ok",
-                                  onPress: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              );
-                            } else if (result == 0) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => CustomAlertDialog(
-                                  title:
-                                      "The email was already exist in the database",
-                                  body:
-                                      "Please try different email address or login with this existing account.",
+                                  title: "Don't Leave it Blank",
+                                  body: "Please fill up all the input fields!",
                                   actionText: "Login",
                                   onPress: () {
                                     Navigator.pop(context);

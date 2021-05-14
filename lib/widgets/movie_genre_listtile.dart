@@ -13,7 +13,7 @@ class GenreListTile extends StatelessWidget {
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: cButtonColor,
+        color: cPrimaryColor,
       ),
       child: Text(
         genretxt,

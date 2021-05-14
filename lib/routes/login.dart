@@ -43,158 +43,152 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
     SizeConfig().init(context);
     return Scaffold(
         body: (!isLoading)
-            ? SingleChildScrollView(
-                child: Center(
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(top: SizeConfig.screenHeight * 0.18),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          //Welcome Text
-                          Container(
-                            child: Text(
-                              "WELCOME TO",
-                              style: TextStyle(
-                                  fontSize: SizeConfig.defaultSize * 1.7,
-                                  fontWeight: FontWeight.bold),
-                            ),
+            ? Center(
+                child: Container(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //Welcome Text
+                        Container(
+                          child: Text(
+                            "WELCOME TO",
+                            style: TextStyle(
+                                fontSize: SizeConfig.defaultSize * 1.7,
+                                fontWeight: FontWeight.bold),
                           ),
-                          // Title Text
-                          Container(child: TitleWidget(4.0)),
-                          //Login Form
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.05),
-                            width: SizeConfig.screenWidth * 0.8,
-                            child: Form(
-                              key: _key,
-                              child: Column(
-                                children: [
-                                  // Email address textfield
-                                  CustomTextField(
-                                    text: "Email Address",
-                                    color: Colors.white,
-                                    icon: Icons.person,
-                                    secured: false,
-                                    control: _email,
-                                  ),
-                                  // Password textfield
-                                  CustomTextField(
-                                    text: "Password",
-                                    color: Colors.white,
-                                    icon: Icons.vpn_key,
-                                    secured: true,
-                                    control: _password,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        top: SizeConfig.defaultSize * 2),
-                                    child: Column(
-                                      children: [
-                                        // Login Button
-                                        RectangleButton(
-                                            text: "Log In",
-                                            color: cButtonColor,
-                                            onPress: () async {
-                                              isLoading = true;
-                                              var _result =
-                                                  await _loginProvider.login(
-                                                email: _email.text,
-                                                password: _password.text,
-                                              );
-                                              isLoading = false;
-                                              // Username and password match
-                                              if (_result == 0) {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return CustomAlertDialog(
-                                                        title:
-                                                            "Incorrect email or password",
-                                                        body:
-                                                            "Please check your inputs.",
-                                                        actionText: "Try Again",
-                                                        onPress: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      );
-                                                    });
-                                              }
-                                              // Incorrect Username or password
-                                              else {
-                                                Navigator.of(context)
-                                                    .pushReplacementNamed(
-                                                        RouteGenerator
-                                                            .homePage);
-                                              }
-                                            }),
-                                        SizedBox(
-                                          height: SizeConfig.defaultSize * 3,
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: SizeConfig.defaultSize *
-                                                  0.001),
-                                          child: Row(children: [
-                                            Expanded(
-                                              child: Container(
-                                                  margin: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.defaultSize *
-                                                            0.1,
-                                                    right:
-                                                        SizeConfig.defaultSize *
-                                                            0.1,
-                                                  ),
-                                                  child: Divider(
-                                                    color: Colors.grey,
-                                                  )),
-                                            ),
-                                            Text(
-                                              "Don't have an account?",
-                                              style: TextStyle(
-                                                  fontSize:
+                        ),
+                        // Title Text
+                        Container(child: TitleWidget(4.0)),
+                        //Login Form
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: SizeConfig.screenHeight * 0.05),
+                          width: SizeConfig.screenWidth * 0.8,
+                          child: Form(
+                            key: _key,
+                            child: Column(
+                              children: [
+                                // Email address textfield
+                                CustomTextField(
+                                  text: "Email Address",
+                                  color: Colors.white,
+                                  icon: Icons.person,
+                                  secured: false,
+                                  control: _email,
+                                ),
+                                // Password textfield
+                                CustomTextField(
+                                  text: "Password",
+                                  color: Colors.white,
+                                  icon: Icons.vpn_key,
+                                  secured: true,
+                                  control: _password,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      top: SizeConfig.defaultSize * 2),
+                                  child: Column(
+                                    children: [
+                                      // Login Button
+                                      RectangleButton(
+                                          text: "Log In",
+                                          color: cPrimaryColor,
+                                          onPress: () async {
+                                            isLoading = true;
+                                            var _result =
+                                                await _loginProvider.login(
+                                              email: _email.text,
+                                              password: _password.text,
+                                            );
+                                            isLoading = false;
+                                            // Username and password match
+                                            if (_result == 0 ||
+                                                _email.text.isEmpty ||
+                                                _password.text.isEmpty) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return CustomAlertDialog(
+                                                      title:
+                                                          "Incorrect email or password",
+                                                      body:
+                                                          "Please check your inputs.",
+                                                      actionText: "Try Again",
+                                                      onPress: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    );
+                                                  });
+                                            }
+                                            // Incorrect Username or password
+                                            else {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      RouteGenerator.homePage);
+                                            }
+                                          }),
+                                      SizedBox(
+                                        height: SizeConfig.defaultSize * 3,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            top:
+                                                SizeConfig.defaultSize * 0.001),
+                                        child: Row(children: [
+                                          Expanded(
+                                            child: Container(
+                                                margin: EdgeInsets.only(
+                                                  left: SizeConfig.defaultSize *
+                                                      0.1,
+                                                  right:
                                                       SizeConfig.defaultSize *
-                                                          1.5,
-                                                  color: Colors.grey),
-                                            ),
-                                            Expanded(
-                                              child: Container(
-                                                  margin: EdgeInsets.only(
-                                                    left:
-                                                        SizeConfig.defaultSize *
-                                                            0.1,
-                                                    right:
-                                                        SizeConfig.defaultSize *
-                                                            0.1,
-                                                  ),
-                                                  child: Divider(
-                                                    color: Colors.grey,
-                                                  )),
-                                            ),
-                                          ]),
-                                        ),
-                                        //Register Button
-                                        RectangleButton(
-                                          text: "Create new account",
-                                          color: cAccents,
-                                          onPress: () => Navigator.of(context)
-                                              .pushNamed(
-                                                  RouteGenerator.registerPage),
-                                        )
-                                      ],
-                                    ),
+                                                          0.1,
+                                                ),
+                                                child: Divider(
+                                                  color: Colors.grey,
+                                                )),
+                                          ),
+                                          Text(
+                                            "Don't have an account?",
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.defaultSize *
+                                                        1.5,
+                                                color: Colors.grey),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                                margin: EdgeInsets.only(
+                                                  left: SizeConfig.defaultSize *
+                                                      0.1,
+                                                  right:
+                                                      SizeConfig.defaultSize *
+                                                          0.1,
+                                                ),
+                                                child: Divider(
+                                                  color: Colors.grey,
+                                                )),
+                                          ),
+                                        ]),
+                                      ),
+                                      //Register Button
+                                      RectangleButton(
+                                        text: "Create new account",
+                                        color: cSecondaryColor,
+                                        onPress: () => Navigator.of(context)
+                                            .pushNamed(
+                                                RouteGenerator.registerPage),
+                                      )
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          // AlertBox
-                        ]),
-                  ),
+                        ),
+                        // AlertBox
+                      ]),
                 ),
               )
             : Center(

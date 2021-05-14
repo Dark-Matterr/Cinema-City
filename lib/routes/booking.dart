@@ -3,6 +3,7 @@ import 'package:cinema_city/provider/movie.dart';
 import 'package:cinema_city/provider/ticket.dart';
 import 'package:cinema_city/widgets/alertdialogbox.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../constant.dart';
@@ -77,7 +78,9 @@ class BookingScreenChild extends StatelessWidget {
                                       .distinctDate(snapshot.data)
                                       .map((valueItem) => DropdownMenuItem(
                                             value: valueItem,
-                                            child: Text(valueItem),
+                                            child: Text(DateFormat.yMMMMd()
+                                                .format(
+                                                    DateTime.parse(valueItem))),
                                           ))
                                       .toList(),
                                 ),
@@ -100,7 +103,7 @@ class BookingScreenChild extends StatelessWidget {
                                         (cache.index == -1) ? 0 : cache.index,
                                     minWidth: SizeConfig.defaultSize * 9,
                                     minHeight: SizeConfig.defaultSize * 5,
-                                    activeBgColor: cButtonColor,
+                                    activeBgColor: cSecondaryColor,
                                     labels: cache.toggleLabels(snapshot.data),
                                     onToggle: (index) {
                                       // Set selected date in Booking Service
@@ -118,7 +121,7 @@ class BookingScreenChild extends StatelessWidget {
                                 fontSize: SizeConfig.defaultSize * 1.5,
                                 minWidth: SizeConfig.defaultSize * 15,
                                 minHeight: SizeConfig.defaultSize * 5,
-                                activeBgColor: cButtonColor,
+                                activeBgColor: cSecondaryColor,
                                 labels: ["No Time Slot"],
                               ),
                             );
@@ -216,7 +219,7 @@ class BookingScreenChild extends StatelessWidget {
                                                         1.9),
                                                 color:
                                                     (cache.seatsToggle[index])
-                                                        ? cButtonColor
+                                                        ? cSecondaryColor
                                                         : Color(0xff52505B),
                                                 child: SizedBox(),
                                               ),
@@ -295,7 +298,7 @@ class BookingScreenChild extends StatelessWidget {
                             vertical: SizeConfig.defaultSize * 2,
                             horizontal: SizeConfig.defaultSize * 2,
                           ),
-                          color: cButtonColor,
+                          color: cSecondaryColor,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -309,16 +312,15 @@ class BookingScreenChild extends StatelessWidget {
                                   "PHP ${cache.totalPrice(movieCache.movie[movieCache.index].price.toDouble())}",
                                   style: TextStyle(
                                     fontSize: SizeConfig.defaultSize * 1.8,
-                                    color: Colors.yellow,
                                   ),
                                 ),
                               ]),
                         ),
-                        Consumer<TicketCache>(
+                        Consumer<TicketServices>(
                           builder: (_, ticketCache, __) => ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(cAccents),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  cPrimaryColor),
                             ),
                             child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -345,8 +347,10 @@ class BookingScreenChild extends StatelessWidget {
                                 ticketCache.ticketId =
                                     await cache.generateTicketId(
                                         movieCache.movie[movieCache.index].id);
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    RouteGenerator.ticketPage, (x) => false);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    RouteGenerator.ticketSuccessPage,
+                                    (x) => false);
                               } else {
                                 showDialog(
                                     context: context,
