@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<MovieServices>(
+          ChangeNotifierProvider<MovieServices>(
             create: (context) => MovieServices(),
           ),
           Provider<TicketServices>(

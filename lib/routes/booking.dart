@@ -341,6 +341,8 @@ class BookingScreenChild extends StatelessWidget {
                                 ticketCache.movieTitle =
                                     movieCache.movie[movieCache.index].title;
                                 ticketCache.runtime = cache.selTime;
+                                ticketCache.movieImage =
+                                    movieCache.movie[movieCache.index].image;
                                 ticketCache.movieGenre = movieCache
                                     .movie[movieCache.index].genre
                                     .split(",");

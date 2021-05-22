@@ -92,7 +92,7 @@ class PurchaseHistoryScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontSize:
                                                         SizeConfig.defaultSize *
-                                                            1.9,
+                                                            1.5,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),

@@ -42,6 +42,7 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
     final _loginProvider = Provider.of<UserServices>(context);
     SizeConfig().init(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: (!isLoading)
             ? Center(
                 child: Container(

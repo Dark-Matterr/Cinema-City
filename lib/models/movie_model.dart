@@ -10,7 +10,7 @@ class Movie {
   final double price;
   final String time;
 
-  // Constructor data model
+  // Singleton class pattern
   const Movie._({
     this.id,
     this.image,

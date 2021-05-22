@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:core';
 import 'package:cinema_city/models/movie_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant.dart';
 
-class MovieServices {
+class MovieServices with ChangeNotifier {
   int _index = -1;
   List<Movie> _movies;
   MovieServices();
@@ -19,10 +20,16 @@ class MovieServices {
       final List<Movie> movies =
           (moviesjson).map((val) => Movie.fromJson(val)).toList();
       await Future.delayed(const Duration(seconds: 1));
+      _movies = movies;
       return movies;
     } else {
       throw Exception('Failed to Load the Server');
     }
+  }
+
+  Future<Null> refreshMovie() async {
+    _movies = await getMovie();
+    notifyListeners();
   }
 
   List<Movie> get movie => _movies;

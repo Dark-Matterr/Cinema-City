@@ -73,4 +73,27 @@ class UserServices with ChangeNotifier {
     prefs.remove("user_fname");
     prefs.remove("user_lname");
   }
+
+  Future<int> changePassword(
+    int id,
+    String email,
+    String currentpassword,
+    String newpassword,
+  ) async {
+    var data = {
+      "user_id": id.toString(),
+      "user_email": email,
+      "user_currentpass": currentpassword,
+      "user_newpass": newpassword,
+      "access": "changepass",
+    };
+    var res = await http.post(server_url, body: data);
+    if (res.statusCode == 200) {
+      notifyListeners();
+      return jsonDecode(res.body);
+    } else {
+      notifyListeners();
+      return -1;
+    }
+  }
 }

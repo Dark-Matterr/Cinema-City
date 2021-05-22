@@ -21,121 +21,126 @@ class TicketSuccesscreen extends StatelessWidget {
               context, RouteGenerator.homePage, (route) => false);
         },
       )),
-      body: Stack(alignment: Alignment.center, children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/martian.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Container(
-          color: Colors.black.withOpacity(0.4),
-        ),
-        SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(top: SizeConfig.defaultSize * 13),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Check Image icon
-                Image(
-                  image: AssetImage("assets/icons/check.png"),
-                  width: SizeConfig.defaultSize * 12,
-                ),
-                SizedBox(
-                  height: SizeConfig.defaultSize * 2,
-                ),
-                // Text for reservation
-                Text(
-                  "You Reserve The Seats You Want!!",
-                  style: TextStyle(
-                    fontSize: SizeConfig.defaultSize * 3,
+      body: Consumer<TicketServices>(
+          builder: (_, cache, __) =>
+              Stack(alignment: Alignment.center, children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(cache.movieImage),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                // Ticket
-                Consumer<TicketServices>(
-                  builder: (_, cache, __) => SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                      cache.selSeats.length,
-                      (index) => Container(
-                        width: SizeConfig.defaultSize * 30,
-                        height: SizeConfig.defaultSize * 30,
-                        margin: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize * 3,
-                          vertical: SizeConfig.defaultSize * 2,
+                Container(
+                  color: Colors.black.withOpacity(0.4),
+                ),
+                SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.only(top: SizeConfig.defaultSize * 13),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        // Check Image icon
+                        Image(
+                          image: AssetImage("assets/icons/check.png"),
+                          width: SizeConfig.defaultSize * 12,
                         ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize * 2.5,
-                          vertical: SizeConfig.defaultSize * 2,
+                        SizedBox(
+                          height: SizeConfig.defaultSize * 2,
                         ),
-                        color: cButtonColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(cache.movieGenre.join(" ")),
-                                Text(
-                                    "Ticket ${index + 1}/${cache.selSeats.length}"),
-                              ],
-                            ),
-                            SizedBox(
-                              height: SizeConfig.defaultSize * 2,
-                            ),
-                            Text(
-                              cache.movieTitle,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: SizeConfig.defaultSize * 3,
+                        // Text for reservation
+                        Text(
+                          "You Reserve The Seats You Want!!",
+                          style: TextStyle(
+                            fontSize: SizeConfig.defaultSize * 3,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        // Ticket
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: List.generate(
+                            cache.selSeats.length,
+                            (index) => Container(
+                              width: SizeConfig.defaultSize * 30,
+                              height: SizeConfig.defaultSize * 30,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.defaultSize * 3,
+                                vertical: SizeConfig.defaultSize * 2,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.defaultSize * 2.5,
+                                vertical: SizeConfig.defaultSize * 2,
+                              ),
+                              color: cButtonColor,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(cache.movieGenre.join(" ")),
+                                      Text(
+                                          "Ticket ${index + 1}/${cache.selSeats.length}"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.defaultSize * 2,
+                                  ),
+                                  Text(
+                                    cache.movieTitle,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: SizeConfig.defaultSize * 2.6,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.defaultSize * 2,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        cache.runtime,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              SizeConfig.defaultSize * 1.5,
+                                        ),
+                                      ),
+                                      Text(
+                                        "SEAT #${cache.selSeats[index] + 1}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              SizeConfig.defaultSize * 1.5,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.defaultSize * 2,
+                                  ),
+                                  BarcodeWidget(
+                                    height: SizeConfig.defaultSize * 8,
+                                    data: cache.ticketId.toString(),
+                                    barcode: Barcode.code128(),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: SizeConfig.defaultSize * 2,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  cache.runtime,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeConfig.defaultSize * 1.5,
-                                  ),
-                                ),
-                                Text(
-                                  "SEAT #${cache.selSeats[index] + 1}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: SizeConfig.defaultSize * 1.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: SizeConfig.defaultSize * 2,
-                            ),
-                            BarcodeWidget(
-                              height: SizeConfig.defaultSize * 8,
-                              data: cache.ticketId.toString(),
-                              barcode: Barcode.code128(),
-                            ),
-                          ],
+                          )),
                         ),
-                      ),
-                    )),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ]),
+              ])),
     );
   }
 }

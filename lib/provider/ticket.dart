@@ -12,6 +12,7 @@ class TicketServices {
   String _movieTitle;
   String _runtime;
   String _ticketId;
+  String movieImage;
   String username = "";
   int index = -1;
 
