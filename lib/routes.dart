@@ -20,7 +20,6 @@ class RouteGenerator {
   static const String historyPage = '/profile/history';
   static const String ticketPage = '/profile/history/ticket';
   static const String profilePage = '/profile';
-
   const RouteGenerator._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {

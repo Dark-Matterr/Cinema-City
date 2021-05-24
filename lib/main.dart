@@ -1,4 +1,5 @@
 import 'package:cinema_city/constant.dart';
+import 'package:cinema_city/provider/connectivity.dart';
 
 import 'package:cinema_city/provider/movie.dart';
 import 'package:cinema_city/provider/ticket.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(
+            create: (context) => ConnectivityServices(),
+          ),
           ChangeNotifierProvider<MovieServices>(
             create: (context) => MovieServices(),
           ),
