@@ -62,14 +62,12 @@ class TicketServices {
       "access": "history",
       "user_id": userId,
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
 
     if (res.statusCode == 200) {
       var jsonList = jsonDecode(res.body) as List;
       List<Purchase> purchaseList =
           jsonList.map((e) => Purchase.fromJson(e)).toList();
-      username =
-          "${prefs.getString("user_fname")} ${prefs.getString("user_lname")}";
       return purchaseList;
     } else {
       throw Exception('Failed to Load the Server');

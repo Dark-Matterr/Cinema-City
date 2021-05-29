@@ -9,43 +9,15 @@ class DrawerListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[800]))),
-        child: InkWell(
-          onTap: ontap,
-          child: Container(
-            height: SizeConfig.defaultSize * 5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      icon,
-                      color: Colors.white,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        title,
-                        style:
-                            TextStyle(fontSize: SizeConfig.defaultSize * 1.7),
-                      ),
-                    )
-                  ],
-                ),
-                Icon(
-                  Icons.arrow_right,
-                  color: Colors.white,
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+    return ListTile(
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize * 1.8),
+      leading: Icon(icon, color: Colors.white),
+      title: Text(title,
+          style: TextStyle(
+              color: Colors.white, fontSize: SizeConfig.defaultSize * 1.7)),
+      hoverColor: Colors.grey,
+      onTap: ontap,
     );
   }
 }

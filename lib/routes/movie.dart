@@ -51,7 +51,7 @@ class _MovieScreenState extends State<MovieScreen> {
                                         Colors.black.withOpacity(0.2),
                                         BlendMode.darken),
                                     image: NetworkImage(
-                                        cache.movie[cache.index].image),
+                                        "$server_url${cache.movie[cache.index].image}"),
                                   ),
                                 ),
                               ),

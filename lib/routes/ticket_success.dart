@@ -44,7 +44,8 @@ class _TicketSuccesscreenState extends State<TicketSuccesscreen> {
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(cache.movieImage),
+                                image: NetworkImage(
+                                    "$server_url${cache.movieImage}"),
                                 fit: BoxFit.cover,
                               ),
                             ),

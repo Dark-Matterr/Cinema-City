@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../size_config.dart';
-
 class CustomTextField extends StatelessWidget {
   final TextEditingController control;
   final String text;
   final Color color;
   final IconData icon;
   final bool secured;
+  final double margin;
   const CustomTextField(
-      {this.text, this.color, this.icon, this.secured, this.control});
+      {this.text,
+      this.color,
+      this.icon,
+      this.secured,
+      this.control,
+      this.margin});
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: SizeConfig.screenHeight * 0.01),
+      margin: EdgeInsets.symmetric(vertical: margin),
       child: TextFormField(
         controller: control,
         obscureText: secured,

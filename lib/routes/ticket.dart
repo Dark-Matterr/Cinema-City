@@ -229,7 +229,10 @@ class _TicketScreenState extends State<TicketScreen> {
                                                             color: Colors.grey),
                                                       ),
                                                       Text(
-                                                        tickProv.username,
+                                                        snapshot
+                                                            .data[
+                                                                tickProv.index]
+                                                            .customerName,
                                                         style: TextStyle(
                                                           fontSize: SizeConfig
                                                                   .defaultSize *
@@ -271,7 +274,13 @@ class _TicketScreenState extends State<TicketScreen> {
                           ),
                         );
                       }
-                      return Center(child: CircularProgressIndicator());
+                      return Scaffold(
+                        body: Center(
+                          child: Image(
+                            image: AssetImage("assets/icons/ripple.gif"),
+                          ),
+                        ),
+                      );
                     }),
               )
             : NoInternetScreen();

@@ -12,7 +12,7 @@ class MovieServices with ChangeNotifier {
   MovieServices();
 
   Future<List<Movie>> getMovie() async {
-    var res = await http.post(server_url,
+    var res = await http.post(server_api,
         body: {"access": "movies"}, headers: {"Accept": "application/json"});
 
     if (res.statusCode == 200) {

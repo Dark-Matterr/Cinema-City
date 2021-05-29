@@ -38,6 +38,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
   final _fname = TextEditingController();
   final _lname = TextEditingController();
   final _password = TextEditingController();
+  final _retpass = TextEditingController();
 
   @override
   void initState() {
@@ -97,6 +98,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                                   color: Colors.white,
                                   control: _email,
                                   secured: false,
+                                  margin: SizeConfig.screenHeight * 0.01,
                                 ),
                                 // First Name TextField
                                 CustomTextField(
@@ -104,6 +106,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                                   color: Colors.white,
                                   control: _fname,
                                   secured: false,
+                                  margin: SizeConfig.screenHeight * 0.01,
                                 ),
                                 // Last Name TextField
                                 CustomTextField(
@@ -111,6 +114,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                                   color: Colors.white,
                                   control: _lname,
                                   secured: false,
+                                  margin: SizeConfig.screenHeight * 0.01,
                                 ),
                                 // Password TextField
                                 CustomTextField(
@@ -118,60 +122,134 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                                   color: Colors.white,
                                   control: _password,
                                   secured: true,
+                                  margin: SizeConfig.screenHeight * 0.01,
                                 ),
                                 // Retype Password TextField
                                 CustomTextField(
                                   text: "Retype the password",
                                   color: Colors.white,
+                                  control: _retpass,
                                   secured: true,
+                                  margin: SizeConfig.screenHeight * 0.01,
                                 ),
                                 // Rounded Register Button
                                 Container(
                                   margin: EdgeInsets.only(
                                       top: SizeConfig.defaultSize * 2),
                                   child: RectangleButton(
-                                    color: cSecondaryColor,
-                                    text: "Register",
-                                    onPress: () async {
-                                      if (_email.text.isNotEmpty &&
-                                          _fname.text.isNotEmpty &&
-                                          _lname.text.isNotEmpty &&
-                                          _password.text.isNotEmpty) {
-                                        int result =
-                                            await _regprovider.register(
-                                          email: _email.text,
-                                          fname: _fname.text,
-                                          lname: _lname.text,
-                                          password: _password.text,
-                                        );
-                                        if (result == 1) {
+                                      color: cSecondaryColor,
+                                      text: "Register",
+                                      onPress: () async {
+                                        if (_email.text.isNotEmpty &&
+                                            _fname.text.isNotEmpty &&
+                                            _lname.text.isNotEmpty &&
+                                            _password.text.isNotEmpty) {
+                                          if (_regprovider
+                                              .isValidEmail(_email.text)) {
+                                            if (_password.text.length > 8 &&
+                                                _retpass.text.length > 8) {
+                                              if (_password.text ==
+                                                  _retpass.text) {
+                                                int result =
+                                                    await _regprovider.register(
+                                                  email: _email.text,
+                                                  fname: _fname.text,
+                                                  lname: _lname.text,
+                                                  password: _password.text,
+                                                );
+                                                if (result == 1) {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        CustomAlertDialog(
+                                                      title:
+                                                          "Registered Successfully",
+                                                      body:
+                                                          "You can now login to the cinema city!",
+                                                      actionText: "Ok",
+                                                      onPress: () {
+                                                        Navigator
+                                                            .pushNamedAndRemoveUntil(
+                                                                context,
+                                                                RouteGenerator
+                                                                    .loginPage,
+                                                                (route) =>
+                                                                    false);
+                                                      },
+                                                    ),
+                                                  );
+                                                } else if (result == 0) {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        CustomAlertDialog(
+                                                      title:
+                                                          "The email was already exist in the database",
+                                                      body:
+                                                          "Please try different email address or login with this existing account.",
+                                                      actionText: "Login",
+                                                      onPress: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  );
+                                                }
+                                              } else {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      CustomAlertDialog(
+                                                    title:
+                                                        "Both Password Didn't Match",
+                                                    body:
+                                                        "Please check your inputs",
+                                                    actionText: "Login",
+                                                    onPress: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                );
+                                              }
+                                            } else {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    CustomAlertDialog(
+                                                  title:
+                                                      "Password Must Be Atleast 8 Characters",
+                                                  body:
+                                                      "Please think another password!",
+                                                  actionText: "Login",
+                                                  onPress: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              );
+                                            }
+                                          } else {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CustomAlertDialog(
+                                                title:
+                                                    "Email Address is Invalid",
+                                                body:
+                                                    "Please try different emails or check your inputs",
+                                                actionText: "Login",
+                                                onPress: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            );
+                                          }
+                                        } else {
                                           showDialog(
                                             context: context,
                                             builder: (context) =>
                                                 CustomAlertDialog(
-                                              title: "Registered Successfully",
+                                              title: "Don't Leave it Blank",
                                               body:
-                                                  "You can now login to the cinema city!",
-                                              actionText: "Ok",
-                                              onPress: () {
-                                                Navigator
-                                                    .pushNamedAndRemoveUntil(
-                                                        context,
-                                                        RouteGenerator
-                                                            .loginPage,
-                                                        (route) => false);
-                                              },
-                                            ),
-                                          );
-                                        } else if (result == 0) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                CustomAlertDialog(
-                                              title:
-                                                  "The email was already exist in the database",
-                                              body:
-                                                  "Please try different email address or login with this existing account.",
+                                                  "Please fill up all the input fields!",
                                               actionText: "Login",
                                               onPress: () {
                                                 Navigator.pop(context);
@@ -179,23 +257,7 @@ class _RegistrationChildWdiget extends State<RegistrationChildWdiget> {
                                             ),
                                           );
                                         }
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              CustomAlertDialog(
-                                            title: "Don't Leave it Blank",
-                                            body:
-                                                "Please fill up all the input fields!",
-                                            actionText: "Login",
-                                            onPress: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
+                                      }),
                                 )
                               ],
                             ),

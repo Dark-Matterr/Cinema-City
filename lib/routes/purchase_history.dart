@@ -33,8 +33,7 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                       if (snapshot.hasData) {
                         return Scaffold(
                           appBar: AppBar(
-                            title: Text("PURCHASES"),
-                            centerTitle: true,
+                            title: Text("Purchases"),
                           ),
                           body: Container(
                             margin: EdgeInsets.symmetric(
@@ -58,11 +57,13 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                 // Ticket Container
                                 Expanded(
                                   child: SizedBox(
-                                    height: SizeConfig.screenHeight,
                                     child: ListView.builder(
                                         scrollDirection: Axis.vertical,
                                         itemCount: snapshot.data.length,
                                         itemBuilder: (context, index) {
+                                          bool isExpired = (snapshot
+                                              .data[index].schedDate
+                                              .isAfter(DateTime.now()));
                                           return Container(
                                             margin: EdgeInsets.only(
                                               bottom:
@@ -84,7 +85,9 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                                       SizeConfig.defaultSize *
                                                           1,
                                                 ),
-                                                color: Color(0xff2c2833),
+                                                color: (isExpired)
+                                                    ? Color(0xff2c2833)
+                                                    : Color(0xff27242d),
                                                 child: Row(
                                                   children: [
                                                     Container(
@@ -97,8 +100,11 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                                               color:
                                                                   Colors.grey)),
                                                       child: Image(
-                                                        image: AssetImage(
-                                                            "assets/icons/ticket.png"),
+                                                        image: (isExpired)
+                                                            ? AssetImage(
+                                                                "assets/icons/ticket.png")
+                                                            : AssetImage(
+                                                                "assets/icons/past-ticket.png"),
                                                         width: SizeConfig
                                                                 .defaultSize *
                                                             6,
@@ -109,49 +115,89 @@ class _PurchaseHistoryScreenState extends State<PurchaseHistoryScreen> {
                                                               .defaultSize *
                                                           1.5,
                                                     ),
-                                                    Container(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          // Ticket movie title
-                                                          Text(
-                                                            snapshot.data[index]
-                                                                .movieTitle,
-                                                            style: TextStyle(
-                                                              fontSize: SizeConfig
-                                                                      .defaultSize *
-                                                                  1.5,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                    Expanded(
+                                                      child: Container(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            // Ticket movie title
+                                                            Text(
+                                                              snapshot
+                                                                  .data[index]
+                                                                  .movieTitle,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      SizeConfig
+                                                                              .defaultSize *
+                                                                          1.5,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: (isExpired)
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Color(
+                                                                          0xff7f7f7f)),
                                                             ),
-                                                          ),
-                                                          //Information of Reservation
-                                                          Text(
-                                                            "${DateFormat('EEEE, d MMM, yyyy').format(snapshot.data[index].schedDate)}",
-                                                            style: TextStyle(
-                                                              fontSize: SizeConfig
-                                                                      .defaultSize *
-                                                                  1.4,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
+                                                            //Information of Reservation
+                                                            Text(
+                                                              "${DateFormat('EEEE, d MMM, yyyy').format(snapshot.data[index].dateTransact)}",
+                                                              style: TextStyle(
+                                                                fontSize: SizeConfig
+                                                                        .defaultSize *
+                                                                    1.4,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                color: (isExpired)
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Color(
+                                                                        0xff7f7f7f),
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Text(
-                                                            "${DateFormat.jm().format(snapshot.data[index].schedDate)}",
-                                                            style: TextStyle(
-                                                              fontSize: SizeConfig
-                                                                      .defaultSize *
-                                                                  1.4,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    child: Text(
+                                                                      "${DateFormat.jm().format(snapshot.data[index].dateTransact)}",
+                                                                      style: TextStyle(
+                                                                          fontSize: SizeConfig.defaultSize *
+                                                                              1.4,
+                                                                          fontWeight: FontWeight
+                                                                              .normal,
+                                                                          color: (isExpired)
+                                                                              ? Colors.white
+                                                                              : Color(0xff7f7f7f)),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    padding: EdgeInsets.all(
+                                                                        SizeConfig.defaultSize *
+                                                                            0.5),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color: (isExpired)
+                                                                              ? Colors.white
+                                                                              : Color(0xff7f7f7f)),
+                                                                    ),
+                                                                    child: Text(
+                                                                      "PHP ${snapshot.data[index].price}",
+                                                                      style: TextStyle(
+                                                                          color: (isExpired)
+                                                                              ? Colors.white
+                                                                              : Color(0xff7f7f7f)),
+                                                                    ),
+                                                                  )
+                                                                ]),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

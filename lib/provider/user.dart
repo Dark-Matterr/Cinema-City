@@ -16,7 +16,7 @@ class UserServices with ChangeNotifier {
       "user_pass": password,
       "access": "login",
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
 
     if (res.statusCode == 200) {
       var status = jsonDecode(res.body);
@@ -51,7 +51,7 @@ class UserServices with ChangeNotifier {
       "reg_pass": password,
       "access": "register",
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
     if (res.statusCode == 200) {
       notifyListeners();
       return jsonDecode(res.body);
@@ -87,7 +87,7 @@ class UserServices with ChangeNotifier {
       "user_newpass": newpassword,
       "access": "changepass",
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
     if (res.statusCode == 200) {
       notifyListeners();
       return jsonDecode(res.body);
@@ -95,5 +95,11 @@ class UserServices with ChangeNotifier {
       notifyListeners();
       return -1;
     }
+  }
+
+  bool isValidEmail(String value) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(value);
   }
 }

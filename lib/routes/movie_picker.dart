@@ -1,3 +1,4 @@
+import 'package:cinema_city/constant.dart';
 import 'package:cinema_city/provider/connectivity.dart';
 import 'package:cinema_city/provider/movie.dart';
 import 'package:cinema_city/provider/user.dart';
@@ -6,6 +7,7 @@ import 'package:cinema_city/routes/no_internet.dart';
 import 'package:cinema_city/size_config.dart';
 import 'package:cinema_city/widgets/drawer_listtile.dart';
 import 'package:cinema_city/widgets/movie_listtile.dart';
+import 'package:cinema_city/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,51 +54,77 @@ class MoviePickerChild extends StatelessWidget {
                               child: ListView(
                                 children: <Widget>[
                                   DrawerHeader(
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: <Color>[
-                                            Color(0xffec7532),
-                                            Color(0xfffbbd61),
-                                          ])),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(
-                                                SizeConfig.defaultSize * 1),
-                                            child: CircleAvatar(
-                                              maxRadius:
-                                                  SizeConfig.defaultSize * 3.5,
-                                              backgroundImage: AssetImage(
-                                                "assets/icons/user.png",
-                                              ),
+                                      child: Column(children: [
+                                    Container(
+                                        alignment: Alignment.center,
+                                        width: SizeConfig.screenWidth,
+                                        margin: EdgeInsets.only(
+                                          bottom: SizeConfig.defaultSize * 0.5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: Colors.grey))),
+                                        padding: EdgeInsets.only(
+                                            bottom:
+                                                SizeConfig.defaultSize * 0.8),
+                                        child: TitleWidget(
+                                            SizeConfig.defaultSize * 0.15)),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(
+                                              SizeConfig.defaultSize * 1),
+                                          child: CircleAvatar(
+                                            maxRadius:
+                                                SizeConfig.defaultSize * 3,
+                                            backgroundImage: AssetImage(
+                                              "assets/icons/user.png",
                                             ),
                                           ),
-                                          FutureBuilder(
+                                        ),
+                                        FutureBuilder(
                                             future:
                                                 SharedPreferences.getInstance(),
-                                            builder: (context, snapshot) =>
-                                                Text(
-                                              "${snapshot.data.getString("user_fname")} ${snapshot.data.getString("user_lname")}",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      SizeConfig.defaultSize *
-                                                          1.5),
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                  DrawerListTile(Icons.person, "Profile", () {
-                                    Navigator.of(context)
-                                        .pushNamed(RouteGenerator.profilePage);
-                                  }),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "${snapshot.data.getString("user_fname")} ${snapshot.data.getString("user_lname")}",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: SizeConfig
+                                                                    .defaultSize *
+                                                                1.7),
+                                                      ),
+                                                      Text(
+                                                        "${snapshot.data.getString("user_email")}",
+                                                        style: TextStyle(
+                                                            fontSize: SizeConfig
+                                                                    .defaultSize *
+                                                                1),
+                                                      ),
+                                                    ]);
+                                              }
+                                              return CircularProgressIndicator();
+                                            })
+                                      ],
+                                    )
+                                  ])),
                                   DrawerListTile(
-                                      Icons.clean_hands, "Purchase History",
-                                      () {
+                                      Icons.history, "Purchase History", () {
                                     Navigator.of(context)
                                         .pushNamed(RouteGenerator.historyPage);
+                                  }),
+                                  DrawerListTile(
+                                      Icons.vpn_key, "Update Password", () {
+                                    Navigator.of(context)
+                                        .pushNamed(RouteGenerator.profilePage);
                                   }),
                                   DrawerListTile(Icons.logout, "Logout", () {
                                     UserServices().userLogout();
@@ -123,7 +151,8 @@ class MoviePickerChild extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           MovieListTile(
                                               title: cache.movie[index].title,
-                                              image: cache.movie[index].image,
+                                              image:
+                                                  "$server_url${cache.movie[index].image}",
                                               onPress: () {
                                                 cache.index = index;
                                                 Navigator.of(context)

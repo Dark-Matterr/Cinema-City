@@ -431,7 +431,6 @@ class BookingScreenChild extends StatelessWidget {
                                           movieCache
                                               .movie[movieCache.index].price,
                                         );
-
                                         if (codeStatus == 1) {
                                           // Cache the values from ticket provider
                                           ticketCache.selSeats =

@@ -88,6 +88,8 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                           color: Colors.white,
                                           icon: Icons.person,
                                           secured: false,
+                                          margin:
+                                              SizeConfig.screenHeight * 0.01,
                                           control: _email,
                                         ),
                                         // Password textfield
@@ -96,6 +98,8 @@ class _LoginChildWdigetState extends State<LoginChildWdiget> {
                                           color: Colors.white,
                                           icon: Icons.vpn_key,
                                           secured: true,
+                                          margin:
+                                              SizeConfig.screenHeight * 0.01,
                                           control: _password,
                                         ),
                                         Container(

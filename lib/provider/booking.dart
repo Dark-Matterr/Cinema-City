@@ -24,7 +24,7 @@ class BookingServices with ChangeNotifier {
       "access": "moviesched",
       "movie_id": movieid,
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
     if (res.statusCode == 200) {
       var list = jsonDecode(res.body) as List;
       var sched = list.map((val) => Schedule.fromJson(val)).toList();
@@ -45,7 +45,7 @@ class BookingServices with ChangeNotifier {
       "reserve_time": reserveHour,
       "reserve_day": reserveDay,
     };
-    var res = await http.post(server_url, body: data);
+    var res = await http.post(server_api, body: data);
     if (res.statusCode == 200) {
       var jsonlist = jsonDecode(res.body) as List;
       List<String> intlist = jsonlist.map((e) => e.toString()).toList();
@@ -193,9 +193,9 @@ class BookingServices with ChangeNotifier {
         "price": totalPrice(moviePrice).toString(),
         "access": "reservation",
       };
-      var res = await http.post(server_url, body: data);
+      var res = await http.post(server_api, body: data);
       if (res.statusCode == 200) {
-        return 1;
+        return jsonDecode(res.body);
       } else {
         throw Exception('Failed to Load the Server');
       }
