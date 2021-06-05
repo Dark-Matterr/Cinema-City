@@ -5,7 +5,7 @@ Cinema City is a database system that allows the clients to reserves seats in an
 ## Flutter Android Application
 To use the flutter application, please edit the server_api and server_url to your localhost ip address from constant.dart in lib folder.
 
-<img src="images/apk.gif" height="250"/>
+<img src="images/apk.gif" height="500"/>
 
 ## PHP Web Application
 Import first the SQL database into the MYSQL and upload it to your local server. The defaul user in the web admin is 
